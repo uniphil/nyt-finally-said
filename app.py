@@ -1,16 +1,14 @@
+import os
 import codecs
 import sqlite3
-import time
 from lib.bottle import route, run, abort, template
 
 conn = sqlite3.connect(':memory:')
 conn.execute('CREATE TABLE words (word text PRIMARY KEY, year integer, books integer)')
 
 with codecs.open('./deduped.csv', encoding='utf8') as f:
-    t0 = time.time()
-    batch = (line.split() for line in f)
-    conn.executemany('INSERT INTO words VALUES (?,?,?)', batch)
-    print time.time() - t0
+    conn.executemany('INSERT INTO words VALUES (?,?,?)',
+        (line.split() for line in f))
 
 @route('/<word>')
 def index(word):
@@ -24,4 +22,4 @@ def index(word):
         'books': books,
     }
 
-run(host='localhost', port=8080)
+run(host='localhost', port=int(os.environ.get('PORT', 8080)))
