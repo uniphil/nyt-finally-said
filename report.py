@@ -13,7 +13,7 @@ def get_new_tweets(since):
     url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
     url += '?screen_name={}&trim_user=1'.format(first_said)
     if since is not None:
-        url += '&since_id={}'.format(since)
+        url += '&since_id={}'.format(since.decode('utf-8'))
     return requests.get(url, auth=auth).json()
 
 def humanize(word, year, books):
