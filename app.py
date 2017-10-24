@@ -1,5 +1,5 @@
 import os
-from lib.bottle import route, run, abort, template
+from bottle import route, run, abort, template
 import lookup
 
 @route('/<word>')
