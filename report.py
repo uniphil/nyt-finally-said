@@ -9,8 +9,6 @@ first_said = 'nyt_first_said'
 auth = OAuth1(os.environ['KEY'], os.environ['SECRET'],
               os.environ['USER_TOKEN'], os.environ['USER_SECRET'])
 
-r = redis.StrictRedis.from_url(os.environ['REDIS_URL'])
-
 def get_new_tweets(since):
     url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
     url += '?screen_name={}&trim_user=1'.format(first_said)
@@ -41,6 +39,7 @@ def respond(word, tweet_id):
 
 if __name__ == '__main__':
     print('connecting to redis...')
+    r = redis.StrictRedis.from_url(os.environ['REDIS_URL'])
     last = r.get('last')
     print('fetching tweets since {}'.format(last))
     tweets = get_new_tweets(since=last)
