@@ -12,11 +12,11 @@ with open('manifestor/bullets.json') as f:
     bullets = load(f)
     shuffle(bullets)
     for bullet in bullets[:5]:
-        print("* {}\n".format(bullet))
+        print("* {}".format(bullet))
 
 with open('manifestor/conclusions.json') as f:
     sentences = load(f)
     shuffle(sentences)
-    print('{}\n'.format(' '.join(sentences[:2])))
+    print('\n{}\n'.format(' '.join(sentences[:2])))
 
 print("-- yael, rachel, riley, phil, 2018")
